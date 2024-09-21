@@ -23,7 +23,6 @@ public class SudokuSolver {
         final List<Callable<Boolean>> tasks = getTasks();
         boolean taskSolvingResult;
         do {
-            reviewPossibleNumbers();
             taskSolvingResult = runSolvingTasks(tasks);
         } while (taskSolvingResult);
         if (!isSolved()) {
@@ -59,6 +58,7 @@ public class SudokuSolver {
         rows = createRows(integers);
         columns = createColumns(rows);
         squares = createSquares(rows);
+        registerProcessor(new DeleteImpossibleNumbersProcessor());
         registerProcessor(new OnlyOnePossibleValueProcessor());
         registerProcessor(new PossibleValueOnlyOnceProcessor());
     }
@@ -75,13 +75,6 @@ public class SudokuSolver {
             }
         }
         return false;
-    }
-
-    private void reviewPossibleNumbers() {
-        final CellsProcessor processor = new DeleteImpossibleNumbersProcessor();
-        processor.process(rows);
-        processor.process(columns);
-        processor.process(squares);
     }
 
     private List<Callable<Boolean>> getTasks() {

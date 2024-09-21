@@ -11,10 +11,8 @@ class OnlyOnePossibleValueProcessor implements CellsProcessor{
                     stream().
                     filter(c -> c.getPossibleNumbers().size() == 1).
                     findFirst();
+            optionalCell.ifPresent(cell -> cell.setNumber(cell.getPossibleNumbers().iterator().next()));
             if (optionalCell.isPresent()) {
-                final Cell cell = optionalCell.get();
-                final int possibleNumber = cell.getPossibleNumbers().iterator().next();
-                cell.setNumber(possibleNumber);
                 return true;
             }
         }

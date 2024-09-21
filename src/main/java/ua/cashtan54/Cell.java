@@ -35,7 +35,7 @@ class Cell {
         return possibleNumbers;
     }
 
-    void removeFromPossibleNumbers(Collection<Integer> numbers) {
+    void removeFromPossibleNumbers(Set<Integer> numbers) {
         possibleNumbers.removeAll(numbers);
     }
 

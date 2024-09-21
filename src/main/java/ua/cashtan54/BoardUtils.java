@@ -15,7 +15,7 @@ class BoardUtils {
         return result;
     }
 
-    static Collection<Integer> getIntegersFromCells(List<Cell> listOfCells) {
+    static Set<Integer> getIntegersFromCells(List<Cell> listOfCells) {
         return listOfCells.stream().map(Cell::getNumber).filter(num -> num > 0).collect(Collectors.toSet());
     }
 }
