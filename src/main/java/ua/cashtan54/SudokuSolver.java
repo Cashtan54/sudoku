@@ -64,17 +64,15 @@ public class SudokuSolver {
     }
 
     private boolean runSolvingTasks(List<Callable<Boolean>> solvingTasks) {
-        for (Callable<Boolean> task : solvingTasks) {
-            try {
-                boolean taskResult = task.call();
-                if (taskResult) {
-                    return true;
-                }
-            } catch (Exception e) {
-                throw new CanNotSolveException("Something wrong", e);
-            }
-        }
-        return false;
+        return solvingTasks.
+                stream().
+                anyMatch(task -> {
+                    try {
+                        return task.call();
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
     }
 
     private List<Callable<Boolean>> getTasks() {
